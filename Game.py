@@ -45,14 +45,15 @@ def chosing():
         answ = int(input('>>'))
 
     if answ == 1:
-        print('you\'ve succsesfully run away')
+        if Fight_count ==1:
+            print('you\'ve succsesfully run away')
 
     if answ == 2:
         print('u got all your braveness to a hand and claimed an Ogre\'s battle call')
     return answ
 
 #first fight
-
+Fight_count = 1
 print('u started ur long and hard way in the kingdom Headspace \n at the start of ur way you\'ve met an Ogre')
 
 chosing()
