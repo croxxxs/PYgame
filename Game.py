@@ -36,3 +36,27 @@ if WTF_factor == 3:
     inv3 = 5
     shield3 = 150
     print_stats(hp3,dmg3,inv3,shield3)
+
+def chosing():
+    print('what would you like to do?\n 1 - run away \n 2 - get the fight')
+    answ = int(input('>>'))
+    while answ < 1 or answ > 2:
+        print('please, be intellegent and write number in spree of 1 - 2')
+        answ = int(input('>>'))
+
+    if answ == 1:
+        print('you\'ve succsesfully run away')
+
+    if answ == 2:
+        print('u got all your braveness to a hand and claimed an Ogre\'s battle call')
+
+#first fight
+
+print('u started ur long and hard way in the kingdom Headspace \n at the start of ur way you\'ve met an Ogre')
+
+chosing()
+
+
+
+    
+
