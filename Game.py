@@ -49,6 +49,7 @@ def chosing():
 
     if answ == 2:
         print('u got all your braveness to a hand and claimed an Ogre\'s battle call')
+    return answ
 
 #first fight
 
