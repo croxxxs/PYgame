@@ -1,5 +1,9 @@
 import random
 
+ogre_hp = 175
+ogre_dmg = 30
+ogre_shield = 0
+
 WTF_factor = random.randint(1,3) 
 #character stats
 name = input('enter ur hero\'s name >> ')
@@ -39,6 +43,7 @@ if WTF_factor == 3:
 
 def chosing():
     print('what would you like to do?\n 1 - run away \n 2 - get the fight')
+    action = 0
     answ = int(input('>>'))
     while answ < 1 or answ > 2:
         print('please, be intellegent and write number in spree of 1 - 2')
@@ -47,17 +52,33 @@ def chosing():
     if answ == 1:
         if Fight_count ==1:
             print('you\'ve succsesfully run away')
+        action = 1
 
     if answ == 2:
         print('u got all your braveness to a hand and claimed an Ogre\'s battle call')
+        action = 2
     return answ
+
+def attack(hp,e_shield):
+    print(f'{name} attacks')
+    overall_hp = hp + e_shield
+    if WTF_factor == 1:
+        if overall_hp > 0:
+            overall_hp -= dmg1
+            print(f'enemy\'s hp is {overall_hp}')
+        if overall_hp < 0:
+            overall_hp = 0
+            print('enemy died, you\'ve won')
+    return overall_hp
+
+
+
 
 #first fight
 Fight_count = 1
 print('u started ur long and hard way in the kingdom Headspace \n at the start of ur way you\'ve met an Ogre')
 
 chosing()
-
 
 
     
