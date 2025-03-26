@@ -1,85 +1,106 @@
+import sys
 import random
 
-ogre_hp = 175
-ogre_dmg = 30
-ogre_shield = 0
+restart = False
+while restart != False:
+    # Определяем характеристики огра
+    ogre = 'ogre'
+    ogre_hp = 175
+    club_dmg = 30
+    ogre_shield = 0
 
-WTF_factor = random.randint(1,3) 
-#character stats
-name = input('enter ur hero\'s name >> ')
+    #Определяем фактор WTF
+    WTF_factor = random.randint(1, 3)
 
-def print_stats(hp,dmg,inv,shield,):
-    print(f'the {name}\'s stats:')
-    print(f'{name}\'s hp is {hp}')
-    print(F'{name}\'s dmg is {dmg}')
-    print(f'{name}\'s inventory capacity is {inv} ')
-    if WTF_factor == 2 or WTF_factor == 3:
-        print(f'because u are not a child u can bring a shield with you \n shield\'s toughness is {shield}')
+    # Характеристики персонажа
+    name = input('Enter your hero\'s name >> ')
 
+    def print_stats(hp, dmg, inv, shield):
+        print(f'The {name}\'s stats:')
+        print(f'{name}\'s hp is {hp}')
+        print(f'{name}\'s dmg is {dmg}')
+        print(f'{name}\'s inventory capacity is {inv}')
+        if WTF_factor == 2 or WTF_factor == 3:
+            print(f'Because you are not a child, you can bring a shield with you. Shield\'s toughness is {shield}')
 
-if WTF_factor == 1:
-    print(f'for an undescribeble pity, {name} is a little child')
-    hp1 = 100
-    dmg1 = 25
-    inv1 = 2
-    shield1 = 0
-    print_stats(hp1,dmg1,inv1,shield1)
+    # Определяем характеристики героя в зависимости от WTF_factor
+    if WTF_factor == 1:
+        print(f'For an indescribable pity, {name} is a little child.')
+        hp = 100
+        dmg = 25
+        inv = 2
+        shield = 0
+        print_stats(hp, dmg, inv, shield)
 
-if WTF_factor == 2:
-    print(F'{name} is base adult knight')
-    hp2 = 175
-    dmg2 = 75
-    inv2 = 4
-    shield2 = 50
-    print_stats(hp2,dmg2,inv2,shield2)
+    elif WTF_factor == 2:
+        print(f'{name} is a base adult knight.')
+        hp = 175
+        dmg = 75
+        inv = 4
+        shield = 25
+        print_stats(hp, dmg, inv, shield)
 
-if WTF_factor == 3:
-    print(f'for an undiscribeble luck, {name} is caster')
-    hp3 = 150
-    dmg3 = 150
-    inv3 = 5
-    shield3 = 150
-    print_stats(hp3,dmg3,inv3,shield3)
+    elif WTF_factor == 3:
+        print(f'For an indescribable luck, {name} is a caster.')
+        hp = 150
+        dmg = 150
+        inv = 5
+        shield = 50
+        print_stats(hp, dmg, inv, shield)
 
-def chosing():
-    print('what would you like to do?\n 1 - run away \n 2 - get the fight')
-    action = 0
-    answ = int(input('>>'))
+    def attack(hp, e_shield, x, dmg):
+        effective_damage = max(0, dmg - e_shield)
+        hp -= effective_damage
+
+        if effective_damage > 0:
+            print(f"{x} attacks and deals {effective_damage} damage.")
+        else:
+            print(f"{x} attacks, but damage gets fully absorbed by the armor!")
+
+        return hp
+
+    # Начало боя
+    Fight_count = 1
+    print('You started your long and hard way in the kingdom Headspace.')
+    print('At the start of your journey, you\'ve met an Ogre.')
+    print('What would you like to do?\n1 - Run away\n2 - Get into a fight')
+
+    answ = int(input('>> '))
     while answ < 1 or answ > 2:
-        print('please, be intellegent and write number in spree of 1 - 2')
-        answ = int(input('>>'))
+        print('Please, be intelligent and write a number in the range of 1 - 2')
+        answ = int(input('>> '))
 
     if answ == 1:
-        if Fight_count ==1:
-            print('you\'ve succsesfully run away')
-        action = 1
+        print('You\'ve successfully run away, That\'s the first ending \n all the world have forgotten about you so That\'s the worst ending you can have XD')
+        print('would u like to restart? \n 1 - yes \n 2 - no')
+        answ2 = int(input('>> '))
+        while answ2 < 1 or answ2 > 2:
+            print('please, be intellegent and write a number in spree of 1 and 2')
+            nsw2 = int(input('>> '))
+        if answ2 == 2:
+            restart = True
+        else:
+            sys.exit
+    else:
+        print('You gathered all your bravery and accepted the Ogre\'s battle call.')
+        while ogre_hp > 0 and hp > 0:
+            # Атака героя
+            ogre_hp = attack(ogre_hp, ogre_shield, ogre, dmg)
+            if ogre_hp > 0:  # Если огр еще жив, он атакует
+                print('The ogre responds with a club smash!')
+                hp = attack(hp, shield, name, club_dmg)
 
-    if answ == 2:
-        print('u got all your braveness to a hand and claimed an Ogre\'s battle call')
-        action = 2
-    return answ
-
-def attack(hp,e_shield):
-    print(f'{name} attacks')
-    overall_hp = hp + e_shield
-    if WTF_factor == 1:
-        if overall_hp > 0:
-            overall_hp -= dmg1
-            print(f'enemy\'s hp is {overall_hp}')
-        if overall_hp < 0:
-            overall_hp = 0
-            print('enemy died, you\'ve won')
-    return overall_hp
-
-
-
-
-#first fight
-Fight_count = 1
-print('u started ur long and hard way in the kingdom Headspace \n at the start of ur way you\'ve met an Ogre')
-
-chosing()
-
-
-    
+        if hp <= 0:
+            print(f"{name} has been defeated!")
+            print('would u like to restart? \n 1 - yes \n 2 - no')
+            answ2 = int(input('>> '))
+            while answ2 < 1 or answ2 > 2:
+                print('please, be intellegent and write a number in spree of 1 and 2')
+                nsw2 = int(input('>> '))
+            if answ2 == 2:
+                restart = True
+            else:
+                sys.exit
+        elif ogre_hp <= 0:
+            print(f"{name} has defeated the ogre!")
 
