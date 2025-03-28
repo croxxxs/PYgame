@@ -3,7 +3,13 @@ import random
 
 restart = False
 while restart != False:
-    # Определяем характеристики огра
+    # Определяем характеристики
+
+    hiro = 'hiro'
+    hiro_dmg = 80
+    hiro_hp = 150
+    hiro_shield = 35
+
     ogre = 'ogre'
     ogre_hp = 175
     club_dmg = 30
@@ -76,6 +82,7 @@ while restart != False:
         print('You\'ve successfully run away, That\'s the first ending \n all the world have forgotten about you so That\'s the worst ending you can have XD')
         print('would u like to restart? \n 1 - yes \n 2 - no')
         answ2 = int(input('>> '))
+
         while answ2 < 1 or answ2 > 2:
             print('please, be intellegent and write a number in spree of 1 and 2')
             nsw2 = int(input('>> '))
@@ -85,6 +92,7 @@ while restart != False:
             sys.exit
     else:
         print('You gathered all your bravery and accepted the Ogre\'s battle call.')
+
         while ogre_hp > 0 and hp > 0:
             # Атака героя
             ogre_hp = attack(ogre_hp, ogre_shield, ogre, dmg)
@@ -103,18 +111,58 @@ while restart != False:
                 restart = True
             else:
                 sys.exit
+
         elif ogre_hp <= 0:
             print(f"{name} has defeated the ogre!")
 
 
-    print('After battle with ogre you\'ve found out his strange shaped cloak(+30 hp , -1 inventory space)')
+    print('After battle with ogre you\'ve found out his strange shaped cloak(+30 hp , + 20 shield, -1 inventory space)')
     print('would you like to take it? \n 1 - yes \n 2 - no')
+
     answ3 = int(input('>> '))
     if answ3 == 1:
         new_item = 'strange shaped cloak'
         hp += 30
+        shield += 20
         inv -= 1
         inv_list.append(new_item)
         print(f'your current inventory >> \n {inv_list}')
     else:
         print('you\'ve left strange shaped cloak')
+
+    print('after some rest you continued the adventure in the Headspace')
+    print('one hour of searching something in front of you appeared a new enemy.....')
+    print('it was the elite knight Hiro')
+    print('he offered you for some frienly battle , would you like to accept it?')
+    print('1 - yes \n 2 - no')
+
+    answ4 = int(input('>> '))
+    while answ4 < 1 or answ4 > 2:
+        print('please, be intellegent and write a number in spree of 1 and 2')
+        answ4 = int(input('>> '))
+
+    if answ4 == 1:
+        print('You gathered all your bravery and accepted the Hiro\'s battle call.')
+        while hiro_hp > 0 and hp > 0:
+        
+            hiro_hp = attack(hiro_hp, hiro_shield, hiro, dmg)
+            if hiro_hp > 0: 
+                print('The hiro responds with his attack!')
+                hp = attack(hp, shield, name, hiro_dmg)
+
+        if hp <= 25:
+            print(f"{name} has been defeated!")
+            print('hiro said that you have potential and he can train you(+20hp,+50dmg,)')
+            print('you accepted his offer')
+            print_stats(hp,dmg,inv,shield)
+        elif hiro_hp <= 0:
+            print(f"{name} has defeated Hiro!")
+            print('will you laugh at Hiro(1) or encourage him(2)?')
+            answ4 = int(input('>> '))
+            if answ4 == 1:
+                hiro_kara = 1
+                print('Hiro will remember it....')
+            else:
+                hiro_kara = 0
+                print('Hiro will remember it!')
+            
