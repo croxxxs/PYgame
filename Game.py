@@ -165,4 +165,6 @@ while restart != False:
             else:
                 hiro_kara = 0
                 print('Hiro will remember it!')
-            
+        
+        print('after some rest you continued the adventure in the Headspace')
+        print('one hour of searching something in front of you appeared a new enemy.....')
