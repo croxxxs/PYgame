@@ -30,6 +30,7 @@ while restart != False:
         dmg = 25
         inv = 2
         shield = 0
+        inv_list = []
         print_stats(hp, dmg, inv, shield)
 
     elif WTF_factor == 2:
@@ -38,6 +39,7 @@ while restart != False:
         dmg = 75
         inv = 4
         shield = 25
+        inv_list = []
         print_stats(hp, dmg, inv, shield)
 
     elif WTF_factor == 3:
@@ -46,6 +48,7 @@ while restart != False:
         dmg = 150
         inv = 5
         shield = 50
+        inv_list = []
         print_stats(hp, dmg, inv, shield)
 
     def attack(hp, e_shield, x, dmg):
@@ -60,7 +63,6 @@ while restart != False:
         return hp
 
     # Начало боя
-    Fight_count = 1
     print('You started your long and hard way in the kingdom Headspace.')
     print('At the start of your journey, you\'ve met an Ogre.')
     print('What would you like to do?\n1 - Run away\n2 - Get into a fight')
@@ -104,3 +106,15 @@ while restart != False:
         elif ogre_hp <= 0:
             print(f"{name} has defeated the ogre!")
 
+
+    print('After battle with ogre you\'ve found out his strange shaped cloak(+30 hp , -1 inventory space)')
+    print('would you like to take it? \n 1 - yes \n 2 - no')
+    answ3 = int(input('>> '))
+    if answ3 == 1:
+        new_item = 'strange shaped cloak'
+        hp += 30
+        inv -= 1
+        inv_list.append(new_item)
+        print(f'your current inventory >> \n {inv_list}')
+    else:
+        print('you\'ve left strange shaped cloak')
