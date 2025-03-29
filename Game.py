@@ -5,7 +5,12 @@ restart = False
 while restart != False:
     # Определяем характеристики
 
-    hiro = 'hiro'
+    wizard = 'Buddy'
+    wizard_dmg = 125
+    wizard_hp = 100
+    wizard_shield = 50
+
+    hiro = 'Hiro'
     hiro_dmg = 80
     hiro_hp = 150
     hiro_shield = 35
@@ -50,7 +55,7 @@ while restart != False:
 
     elif WTF_factor == 3:
         print(f'For an indescribable luck, {name} is a caster.')
-        hp = 150
+        hp = 120
         dmg = 150
         inv = 5
         shield = 50
@@ -134,7 +139,7 @@ while restart != False:
     print('one hour of searching something in front of you appeared a new enemy.....')
     print('it was the elite knight Hiro')
     print('he offered you for some frienly battle , would you like to accept it?')
-    print('1 - yes \n 2 - no')
+    print(' 1 - yes \n 2 - no')
 
     answ4 = int(input('>> '))
     while answ4 < 1 or answ4 > 2:
@@ -168,3 +173,20 @@ while restart != False:
         
         print('after some rest you continued the adventure in the Headspace')
         print('one hour of searching something in front of you appeared a new enemy.....')
+        print('it was Buddy the wizer!')
+        print('he attacks you and misses')
+        print('you have no way to run from fight')
+        while wizard_hp > 0 and hp > 0:
+        
+            hiro_hp = attack(wizard_hp, wizard_shield, wizard, dmg)
+            if hiro_hp > 0: 
+                print('The hiro responds with his attack!')
+                hp = attack(hp, shield, name, wizard_dmg)
+
+        if hp <= 0:
+            print(f"{name} has been defeated!")
+            
+            print_stats(hp,dmg,inv,shield)
+        elif wizard_hp <= 25:
+            print('suddently Hiro appears in the back of Buddy and gives him last hit')
+            print('')
