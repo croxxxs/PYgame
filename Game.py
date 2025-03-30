@@ -45,6 +45,17 @@ def load_progress(filename='progress.enc'):
         encrypted_progress = file.read()
     return json.loads(decrypt_data(encrypted_progress, key))
 
+print('would you like to load your progress(if you have it)?')
+print(' 1 - yes \n 2 - no')
+answ6 = int(input('>> '))
+while answ6 < 1 or answ6 > 2:
+    print('please , enter right number')
+    answ6 = int(input('>> '))
+
+if answ6 == 1:
+    load_progress()
+else:
+    print('you dont have any progress yet')
 
 if __name__ == "__main__":
     
