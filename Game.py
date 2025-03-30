@@ -1,5 +1,58 @@
 import sys
 import random
+import json
+from cryptography.fernet import Fernet
+import os
+
+
+def generate_key():
+    return Fernet.generate_key()
+
+
+def save_key(key, filename='secret.key'):
+    with open(filename, 'wb') as key_file:
+        key_file.write(key)
+
+
+def load_key(filename='secret.key'):
+    return open(filename, 'rb').read()
+
+
+def encrypt_data(data, key):
+    f = Fernet(key)
+    encrypted_data = f.encrypt(data.encode())
+    return encrypted_data
+
+
+def decrypt_data(encrypted_data, key):
+    f = Fernet(key)
+    decrypted_data = f.decrypt(encrypted_data).decode()
+    return decrypted_data
+
+
+def save_progress(progress, filename='progress.enc'):
+    key = load_key()
+    encrypted_progress = encrypt_data(json.dumps(progress), key)
+    with open(filename, 'wb') as file:
+        file.write(encrypted_progress)
+
+
+def load_progress(filename='progress.enc'):
+    if not os.path.exists(filename):
+        return None
+    key = load_key()
+    with open(filename, 'rb') as file:
+        encrypted_progress = file.read()
+    return json.loads(decrypt_data(encrypted_progress, key))
+
+
+if __name__ == "__main__":
+    
+    key = generate_key()
+    save_key(key)
+
+    # Загрузка ключа
+    key = load_key()
 
 restart = False
 while restart != False:
@@ -42,6 +95,7 @@ while restart != False:
         inv = 2
         shield = 0
         inv_list = []
+        WTF = '1'
         print_stats(hp, dmg, inv, shield)
 
     elif WTF_factor == 2:
@@ -51,6 +105,7 @@ while restart != False:
         inv = 4
         shield = 25
         inv_list = []
+        WTF = '2'
         print_stats(hp, dmg, inv, shield)
 
     elif WTF_factor == 3:
@@ -60,7 +115,11 @@ while restart != False:
         inv = 5
         shield = 50
         inv_list = []
+        WTF = '3'
         print_stats(hp, dmg, inv, shield)
+
+    progress = [WTF]
+    save_progress(progress)
     
     def attack(hp, x, dmg):
             
@@ -149,8 +208,11 @@ while restart != False:
                 sys.exit
 
         elif ogre_hp <= 0:
-            print(f'{name} attack ogre')
             print(f"{name} has defeated the ogre!")
+            Fight_complete = '1'
+
+        progress = [WTF,Fight_complete]
+        save_progress(progress)
 
 
     print('After battle with ogre you\'ve found out his strange shaped cloak(+30 hp , + 20 shield, -1 inventory space)')
@@ -230,6 +292,11 @@ while restart != False:
             else:
                 hiro_kara = 0
                 print('Hiro will remember it!')
+
+        Fight_complete = '2'
+        progress = [WTF,Fight_complete]
+        save_progress(progress)
+
         
         print('after some rest you continued the adventure in the Headspace')
         print('one hour of searching something in front of you appeared a new enemy.....')
@@ -276,7 +343,9 @@ while restart != False:
             print_stats(hp,dmg,inv,shield)
         elif wizard_hp <= 25:
             print('suddently Hiro appears in the back of Buddy and gives him last hit')
-        
+        Fight_complete = '3'
+        progress = [WTF,Fight_complete]
+        save_progress(progress)
         if hiro_kara == 0:
             print('After fight , you thanked Hiro for the help and you both went to the village')
             print('in the vilage Hiro spreads you fame for the all people')
