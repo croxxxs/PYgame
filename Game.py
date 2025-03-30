@@ -66,7 +66,7 @@ if __name__ == "__main__":
     key = load_key()
 
 restart = False
-while restart != False:
+while restart != True:
     # Определяем характеристики
 
     wizard = 'Buddy'
