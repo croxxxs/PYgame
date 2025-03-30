@@ -61,15 +61,22 @@ while restart != False:
         shield = 50
         inv_list = []
         print_stats(hp, dmg, inv, shield)
+    
+    def attack(hp, x, dmg):
+            
+            hp -= dmg
+            print(f"{x} attacks and deals {dmg} damage.")
 
-    def attack(hp, e_shield, x, dmg):
+            return hp
+
+    def attack_shield(hp, e_shield, x, dmg):
         effective_damage = max(0, dmg - e_shield)
         hp -= effective_damage
 
         if effective_damage > 0:
             print(f"{x} attacks and deals {effective_damage} damage.")
         else:
-            print(f"{x} attacks, but damage gets fully absorbed by the armor!")
+            print(f"{x} attacks, but damage gets fully absorbed by the shield!")
 
         return hp
 
@@ -99,11 +106,35 @@ while restart != False:
         print('You gathered all your bravery and accepted the Ogre\'s battle call.')
 
         while ogre_hp > 0 and hp > 0:
-            # Атака героя
-            ogre_hp = attack(ogre_hp, ogre_shield, ogre, dmg)
-            if ogre_hp > 0:  # Если огр еще жив, он атакует
-                print('The ogre responds with a club smash!')
-                hp = attack(hp, shield, name, club_dmg)
+            print('your action?(1 - attack , 2 - block)')
+            answ5 = int(input('>> '))
+            enemy_action = random.randint(1,2)
+
+            while answ5 < 1 or answ2 > 2:
+                print('please, be intellegent and write a number in spree of 1 and 2')
+                answ5 = int(input('>> '))
+            if answ5 == 1:
+                ogre_hp = attack(ogre_hp,name,dmg)
+                e_skip = False
+            else:
+                if ogre_hp > 0:  
+                    print('The ogre responds with a club smash but you block part of dmg with your shield!')
+                    hp = attack_shield(hp, shield, ogre, club_dmg)
+                    e_skip = True
+            
+                if ogre_hp > 0:  
+                    print('The ogre responds with a club smash!')
+                    hp = attack_shield(hp, shield, ogre, club_dmg)
+            if enemy_action == 1:
+                if e_skip != True:
+                    if ogre_hp > 0:  
+                        print('The ogre responds with a club smash!')
+                        hp = attack(hp, ogre, club_dmg)
+                else:
+                    print(f'{name} attacks ogre')
+                    ogre_hp = attack(ogre_hp,name,dmg)
+            else:
+                ogre_hp = attack_shield(ogre_hp,ogre_shield,name,dmg)
 
         if hp <= 0:
             print(f"{name} has been defeated!")
@@ -118,6 +149,7 @@ while restart != False:
                 sys.exit
 
         elif ogre_hp <= 0:
+            print(f'{name} attack ogre')
             print(f"{name} has defeated the ogre!")
 
 
@@ -149,11 +181,36 @@ while restart != False:
     if answ4 == 1:
         print('You gathered all your bravery and accepted the Hiro\'s battle call.')
         while hiro_hp > 0 and hp > 0:
-        
-            hiro_hp = attack(hiro_hp, hiro_shield, hiro, dmg)
-            if hiro_hp > 0: 
-                print('The hiro responds with his attack!')
-                hp = attack(hp, shield, name, hiro_dmg)
+            print('your action?(1 - attack , 2 - block)')
+            answ5 = int(input('>> '))
+            enemy_action = random.randint(1,2)
+
+            while answ5 < 1 or answ2 > 2:
+                print('please, be intellegent and write a number in spree of 1 and 2')
+                answ5 = int(input('>> '))
+            if answ5 == 1:
+                hiro_hp = attack(hiro_hp,name,dmg)
+                e_skip = False
+            else:
+                if hiro_hp > 0:  
+                    print('Hiro responds with his attack')
+                    hp = attack_shield(hp, shield, hiro, hiro_dmg)
+                    e_skip = True
+            
+                if ogre_hp > 0:  
+                    print('The Hiro responds with his attack')
+                    hp = attack_shield(hp, shield, hiro, hiro_dmg)
+            if enemy_action == 1:
+                if e_skip != True:
+                    if ogre_hp > 0:  
+                        print('The Hiro responds with his attack')
+                        hp = attack(hp, hiro, hiro_dmg)
+                else:
+                    print(f'{name} attacks Hiro')
+                    hiro_hp = attack(hiro_hp,name,dmg)
+            else:
+                print(f'{name} attacks Hiro but he uses shield')
+                hiro_hp = attack_shield(hiro_hp,hiro_shield,name,dmg)
 
         if hp <= 25:
             print(f"{name} has been defeated!")
@@ -164,6 +221,9 @@ while restart != False:
             print(f"{name} has defeated Hiro!")
             print('will you laugh at Hiro(1) or encourage him(2)?')
             answ4 = int(input('>> '))
+            while answ4 < 1 or answ4 > 2:
+                print('write down correct number')
+                answ4 = int(input('>> '))   
             if answ4 == 1:
                 hiro_kara = 1
                 print('Hiro will remember it....')
@@ -178,10 +238,37 @@ while restart != False:
         print('you have no way to run from fight')
         while wizard_hp > 0 and hp > 0:
         
-            hiro_hp = attack(wizard_hp, wizard_shield, wizard, dmg)
-            if hiro_hp > 0: 
-                print('The hiro responds with his attack!')
-                hp = attack(hp, shield, name, wizard_dmg)
+           while wizard_hp > 0 and hp > 0:
+            print('your action?(1 - attack , 2 - block)')
+            answ5 = int(input('>> '))
+            enemy_action = random.randint(1,2)
+
+            while answ5 < 1 or answ2 > 2:
+                print('please, be intellegent and write a number in spree of 1 and 2')
+                answ5 = int(input('>> '))
+            if answ5 == 1:
+                wizard_hp = attack(wizard_hp,name,dmg)
+                e_skip = False
+            else:
+                if hiro_hp > 0:  
+                    print('Buddy responds with his attack')
+                    hp = attack_shield(hp, shield, wizard, wizard_dmg)
+                    e_skip = True
+            
+                if ogre_hp > 0:  
+                    print('The Buddy responds with his attack')
+                    hp = attack_shield(hp, shield, wizard, wizard_dmg)
+            if enemy_action == 1:
+                if e_skip != True:
+                    if wizard_hp > 0:  
+                        print('The Buddy responds with his attack')
+                        hp = attack(hp, wizard, club_dmg)
+                else:
+                    print(f'{name} attacks Buddy')
+                    wizard_hp = attack(hiro_hp,name,dmg)
+            else:
+                print(f'{name} attacks Buddy but he uses shield')
+                wizard_hp = attack_shield(wizard_hp,wizard_shield,name,dmg)
 
         if hp <= 0:
             print(f"{name} has been defeated!")
@@ -189,4 +276,7 @@ while restart != False:
             print_stats(hp,dmg,inv,shield)
         elif wizard_hp <= 25:
             print('suddently Hiro appears in the back of Buddy and gives him last hit')
-            print('')
+        
+        if hiro_kara == 0:
+            print('After fight , you thanked Hiro for the help and you both went to the village')
+            print('in the vilage Hiro spreads you fame for the all people')
