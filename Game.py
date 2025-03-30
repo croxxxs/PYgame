@@ -280,3 +280,8 @@ while restart != False:
         if hiro_kara == 0:
             print('After fight , you thanked Hiro for the help and you both went to the village')
             print('in the vilage Hiro spreads you fame for the all people')
+            print('that\'s the best ending, congrants!!')
+        
+        if hiro_kara == 1:
+            print('After the fight , Hiro gets his revenge by killing you from the back')
+            print('it was the secret(bad) ending , congrats!!!')
