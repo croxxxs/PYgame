@@ -178,7 +178,7 @@ while restart != True:
         if answ2 == 1:
             restart = True
         else:
-            sys.exit
+            sys.exit()
     else:
         print('You gathered all your bravery and accepted the Ogre\'s battle call.')
 
@@ -225,7 +225,7 @@ while restart != True:
             if answ2 == 2:
                 restart = True
             else:
-                sys.exit
+                sys.exit()
 
         elif ogre_hp <= 0:
             print(f"{name} has defeated the ogre!")
@@ -389,7 +389,11 @@ while restart != True:
             answ2 = int(input('>> '))
             while answ2 < 1 or answ2 > 2:
                 print('please, be intellegent and write a number in spree of 1 and 2')
-                nsw2 = int(input('>> '))
+                answ2 = int(input('>> '))
+            if answ2 == 1:
+                restart = True
+            else:
+                sys.exit()
         break
 if hiro_kara == 0:
     print('After fight , you thanked Hiro for the help and you both went to the village')
