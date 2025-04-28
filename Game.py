@@ -178,7 +178,7 @@ while restart != True:
         if answ2 == 1:
             restart = True
         else:
-            sys.exit()
+            sys.exit(1)
     else:
         print('You gathered all your bravery and accepted the Ogre\'s battle call.')
 
@@ -225,7 +225,7 @@ while restart != True:
             if answ2 == 2:
                 restart = True
             else:
-                sys.exit()
+                sys.exit(1)
 
         elif ogre_hp <= 0:
             print(f"{name} has defeated the ogre!")
@@ -393,7 +393,7 @@ while restart != True:
             if answ2 == 1:
                 restart = True
             else:
-                sys.exit()
+                sys.exit(1)
         break
 if hiro_kara == 0:
     print('After fight , you thanked Hiro for the help and you both went to the village')
